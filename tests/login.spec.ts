@@ -1,4 +1,7 @@
 import { test, expect } from './baseTest';
+import { loadTestData } from '../src/config/configReader';
+
+const data = loadTestData();
 
 test.describe('Login Tests with Fixtures', () => {
 
@@ -11,12 +14,12 @@ test.describe('Login Tests with Fixtures', () => {
   });
 
   test('Valid login using fixtures', async ({ loginPage, page }) => {
-    await loginPage.login('standard_user', 'secret_sauce');
+    await loginPage.login(data.users.valid.username, data.users.valid.password);
     await expect(page).toHaveURL(/inventory/);
   });
 
   test('Invalid login using fixtures', async ({ loginPage }) => {
-    await loginPage.login('wrong', 'wrong');
+    await loginPage.login(data.users.invalid.username, data.users.invalid.password);
     await loginPage.assertError('Username and password do not match');
   });
 

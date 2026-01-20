@@ -10,7 +10,7 @@ export class LoginPage {
   errorMsg = this.page.locator('[data-test="error"]');
 
   async goto() {
-    await this.page.goto('https://www.saucedemo.com/');
+    await this.page.goto('/');
   }
 
   async login(user: string, pass: string) {
