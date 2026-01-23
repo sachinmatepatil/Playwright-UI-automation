@@ -7,6 +7,7 @@ dotenv.config({ path: `.env.${envName}` });
 export default defineConfig({
     use: {
         baseURL: process.env.BASE_URL || 'http://www.saucedemo.com',
+        storageState: 'auth/storageState.json',
         trace: 'on-first-retry',
         screenshot: 'only-on-failure',
         video: 'retain-on-failure',
