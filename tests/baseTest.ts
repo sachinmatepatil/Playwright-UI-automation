@@ -1,6 +1,5 @@
 import { test as base, chromium, expect } from '@playwright/test';
-import { LoginPage } from '/Users/sachinmate/Documents/Projects/Plawright/pages/login_page';
-
+import { LoginPage } from '../pages/login_page/';
 type MyFixtures = {
   loginPage: LoginPage;
 };
@@ -10,23 +9,24 @@ type MyFixtures = {
 export const test = base.extend<MyFixtures>({
   
   // Reusable browser fixture
-  browser: async ({}, use) => {
-    const browser = await chromium.launch({ headless: false });
-    await use(browser);   // give browser to tests
-    await browser.close();
-  },
+  // browser: async ({}, use) => {
+  //   const browser = await chromium.launch({ headless: false });
+  //   await use(browser);   // give browser to tests
+  //   await browser.close();
+  // },
 
-  // Reusable page fixture
-  page: async ({ browser }, use) => {
-    const page = await browser.newPage();
-    await use(page);
-    await page.close();
-  },
+  // // Reusable page fixture
+  // page: async ({ browser }, use) => {
+  //   const page = await browser.newPage();
+  
+  //   await use(page);
+  //   await page.close();
+  // },
 
   // Reusable loginPage fixture
   loginPage: async ({ page }, use) => {
-    const loginPage = new LoginPage(page);
-    await use(loginPage);
+    // const loginPage = new LoginPage(page);
+    await use(new LoginPage(page));
   },
 
 });
