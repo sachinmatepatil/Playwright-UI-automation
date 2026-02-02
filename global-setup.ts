@@ -1,29 +1,43 @@
-import {chromium, FullConfig} from '@playwright/test';
+import { chromium, type FullConfig } from '@playwright/test';
 import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
 import { loadTestData } from './src/config/configReader';
 
 async function globalSetup(config: FullConfig) {
-    const envName = process.env.ENV || 'dev';
-    dotenv.config({ path: `.env.${envName}` });
+  const envName = process.env.ENV || 'dev';
+  dotenv.config({ path: `.env.${envName}` });
 
-    // Load test data based on the environment
-    const testData = loadTestData();
-    const baseURL = process.env.BASE_URL || 'https://www.saucedemo.com';
+  const testData = loadTestData();
+  const baseURL = process.env.BASE_URL || 'https://www.saucedemo.com';
 
-    const browser = await chromium.launch();
-    const page = await browser.newPage();
+  // Ensure auth folder exists
+  const authDir = path.join(process.cwd(), 'auth');
+  fs.mkdirSync(authDir, { recursive: true });
+  const statePath = path.join(authDir, 'storageState.json');
 
-    await page.goto(baseURL);
+  const browser = await chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
 
-    // login
-    aqait page.getByPlaceholder('Username').fill(data.testUsers.standard.username);
-    await page.getByPlaceholder('Password').fill(data.testUsers.standard.password);
-    await page.getByRole('button', { name: 'Login' }).click();
+  await page.goto(baseURL);
 
-    await page.waitForURL(/Invenotry/);
+  // login (using our TestData structure)
+  await page.getByPlaceholder('Username').fill(testData.users.valid.username);
+  await page.getByPlaceholder('Password').fill(testData.users.valid.password);
+  await page.getByRole('button', { name: 'Login' }).click();
 
-    await page.context().storageState({ path: 'auth/storageState.json' });
-    await browser.close();
+  // SauceDemo redirects to inventory page
+  await page.waitForURL(/inventory/);
+
+  // Save storage state
+  await context.storageState({ path: statePath });
+
+  await browser.close();
+
+  // Validate JSON is not empty/corrupt
+  const raw = fs.readFileSync(statePath, 'utf-8');
+  JSON.parse(raw);
 }
 
 export default globalSetup;

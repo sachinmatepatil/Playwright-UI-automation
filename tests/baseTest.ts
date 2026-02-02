@@ -1,5 +1,5 @@
 import { test as base, chromium, expect } from '@playwright/test';
-import { LoginPage } from '../pages/login_page/';
+import { LoginPage } from '../pages/login_page.ts';
 type MyFixtures = {
   loginPage: LoginPage;
 };
