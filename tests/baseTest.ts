@@ -1,7 +1,9 @@
 import { test as base, chromium, expect } from '@playwright/test';
-import { LoginPage } from '../pages/login_page.ts';
+import { LoginPage } from '../src/pages/login_page.ts';
+import { InventoryPage } from '../src/pages/inventory_page.ts';
 type MyFixtures = {
   loginPage: LoginPage;
+  inventoryPage: InventoryPage;
 };
 
 // Extend base test by providing "loginPage" fixture.
