@@ -30,6 +30,10 @@ export const test = base.extend<MyFixtures>({
     // const loginPage = new LoginPage(page);
     await use(new LoginPage(page));
   },
+  inventoryPage: async ({ page }, use) => {
+    // const inventoryPage = new InventoryPage(page);
+    await use(new InventoryPage(page));
+  }
 
 });
 
