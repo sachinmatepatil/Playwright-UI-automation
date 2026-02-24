@@ -9,10 +9,19 @@ export default defineConfig({
     use: {
         baseURL: process.env.BASE_URL || 'http://www.saucedemo.com',
         storageState: 'auth/storageState.json',
+
+        // Debug artifacts
         trace: 'on-first-retry',
         screenshot: 'only-on-failure',
         video: 'retain-on-failure',
     },
+
+    //HTML + Allure reports
+    reporter: [
+        ['html', {open: 'never'}],
+        ['allure-playwright'],
+    ],
+    
     projects: [
         {
             name: 'chromium',
