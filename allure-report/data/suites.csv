@@ -1,0 +1,7 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","2328","user is already logged in and inventory page is visible","chromium","2026-02-24","passed","2026-02-24","Inventory (requires storageState)","tests/inventory.spec.ts","",""
+"","1638","Add item to cart from inventory","chromium","2026-02-24","passed","2026-02-24","Regression Tests","tests/regression.spec.ts","",""
+"","1391","Sort products by price low to high","chromium","2026-02-24","passed","2026-02-24","Regression Tests","tests/regression.spec.ts","",""
+"","2266","Valid login using fixtures","chromium","2026-02-24","passed","2026-02-24","Login Tests with Fixtures","tests/login.spec.ts","",""
+"","2339","Login Valid -> Inventory loads","chromium","2026-02-24","passed","2026-02-24","Regression Tests","tests/regression.spec.ts","",""
+"","1367","Invalid login using fixtures","chromium","2026-02-24","passed","2026-02-24","Login Tests with Fixtures","tests/login.spec.ts","",""
